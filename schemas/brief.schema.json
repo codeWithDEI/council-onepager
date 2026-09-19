@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+    },
+    "visibility": {
+      "type": "string",
+      "const": "public"
+    },
+    "editorialState": {
+      "type": "string",
+      "const": "draft"
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "meeting": {
+      "type": "object",
+      "properties": {
+        "municipality": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": ""
+            },
+            {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            }
+          ]
+        },
+        "agendaItem": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "proposalReference": {
+          "type": "string",
+          "maxLength": 160
+        }
+      },
+      "required": [
+        "municipality",
+        "body",
+        "date",
+        "agendaItem",
+        "proposalReference"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "preparedBy": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "updatedOn": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": ""
+            },
+            {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            }
+          ]
+        }
+      },
+      "required": [
+        "preparedBy",
+        "version",
+        "updatedOn"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "proposal": {
+          "type": "string",
+          "maxLength": 700
+        },
+        "wording": {
+          "type": "string",
+          "enum": [
+            "summary",
+            "verbatim"
+          ]
+        }
+      },
+      "required": [
+        "question",
+        "proposal",
+        "wording"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "situation": {
+          "type": "string",
+          "maxLength": 700
+        },
+        "objective": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "affectedGroups": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "situation",
+        "objective",
+        "affectedGroups"
+      ],
+      "additionalProperties": false
+    },
+    "options": {
+      "maxItems": 4,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "benefits": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "drawbacks": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "uncertainties": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "benefits",
+          "drawbacks",
+          "uncertainties"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "oneOff": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "unknown"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "const": ""
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "estimated"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "documented"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "annual": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "unknown"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "const": ""
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "estimated"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "documented"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "funding": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "unknown"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "const": ""
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "estimated"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "documented"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "ownContribution": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "unknown"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "const": ""
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "estimated"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "const": "documented"
+                },
+                "amountEuros": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d{0,11})([.,]\\d{1,2})?$"
+                },
+                "note": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "status",
+                "amountEuros",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "fundingState": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "not-applicable",
+            "planned",
+            "requested",
+            "approved"
+          ]
+        },
+        "coverage": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "not-required",
+            "secured",
+            "partial",
+            "unsecured"
+          ]
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": ""
+            },
+            {
+              "type": "string",
+              "pattern": "^\\d{4}$"
+            }
+          ]
+        },
+        "product": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "costType": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "investment",
+            "operating",
+            "mixed",
+            "none"
+          ]
+        },
+        "personnelAndFollowUp": {
+          "type": "string",
+          "maxLength": 400
+        }
+      },
+      "required": [
+        "oneOff",
+        "annual",
+        "funding",
+        "ownContribution",
+        "fundingState",
+        "coverage",
+        "year",
+        "product",
+        "costType",
+        "personnelAndFollowUp"
+      ],
+      "additionalProperties": false
+    },
+    "consultations": {
+      "maxItems": 6,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": ""
+              },
+              {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              }
+            ]
+          },
+          "outcome": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "sourceId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": ""
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "body",
+          "date",
+          "outcome",
+          "sourceId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "nextStep": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "responsible": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "targetDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": ""
+            },
+            {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            }
+          ]
+        },
+        "reporting": {
+          "type": "string",
+          "maxLength": 160
+        }
+      },
+      "required": [
+        "action",
+        "responsible",
+        "targetDate",
+        "reporting"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "maxItems": 12,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": ""
+              },
+              {
+                "type": "string",
+                "maxLength": 2048,
+                "format": "uri"
+              }
+            ]
+          },
+          "locator": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "accessedOn": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": ""
+              },
+              {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              }
+            ]
+          },
+          "supports": {
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "decision",
+                "context",
+                "options",
+                "budget",
+                "consultations",
+                "nextStep"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url",
+          "locator",
+          "accessedOn",
+          "supports"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "visibility",
+    "editorialState",
+    "title",
+    "meeting",
+    "provenance",
+    "decision",
+    "context",
+    "options",
+    "budget",
+    "consultations",
+    "nextStep",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "title": "Council OnePager brief v1.0",
+  "description": "Structural contract for public working drafts. Application validation additionally checks unique IDs, source references, and URL credentials. Validation does not establish factual accuracy."
+}

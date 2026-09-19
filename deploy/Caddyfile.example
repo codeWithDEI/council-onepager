@@ -1,0 +1,13 @@
+# Illustrative local production-build host; not a deployment configuration.
+http://localhost:8080 {
+	root * /srv/council-onepager/dist
+	bind 127.0.0.1
+	header {
+		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		X-Frame-Options "DENY"
+	}
+	file_server
+}

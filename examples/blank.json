@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0",
+  "id": "blank-template",
+  "visibility": "public",
+  "editorialState": "draft",
+  "title": "",
+  "meeting": {
+    "municipality": "",
+    "body": "",
+    "date": "",
+    "agendaItem": "",
+    "proposalReference": ""
+  },
+  "provenance": {
+    "preparedBy": "",
+    "version": "1",
+    "updatedOn": ""
+  },
+  "decision": {
+    "question": "",
+    "proposal": "",
+    "wording": "summary"
+  },
+  "context": {
+    "situation": "",
+    "objective": "",
+    "affectedGroups": ""
+  },
+  "options": [
+    {
+      "id": "proposal",
+      "label": "Vorgeschlagene Maßnahme",
+      "benefits": "",
+      "drawbacks": "",
+      "uncertainties": ""
+    },
+    {
+      "id": "status-quo",
+      "label": "Bisherigen Zustand fortführen",
+      "benefits": "",
+      "drawbacks": "",
+      "uncertainties": ""
+    }
+  ],
+  "budget": {
+    "oneOff": {
+      "status": "unknown",
+      "amountEuros": "",
+      "note": ""
+    },
+    "annual": {
+      "status": "unknown",
+      "amountEuros": "",
+      "note": ""
+    },
+    "funding": {
+      "status": "unknown",
+      "amountEuros": "",
+      "note": ""
+    },
+    "ownContribution": {
+      "status": "unknown",
+      "amountEuros": "",
+      "note": ""
+    },
+    "fundingState": "unknown",
+    "coverage": "unknown",
+    "year": "",
+    "product": "",
+    "costType": "unknown",
+    "personnelAndFollowUp": ""
+  },
+  "consultations": [],
+  "nextStep": {
+    "action": "",
+    "responsible": "",
+    "targetDate": "",
+    "reporting": ""
+  },
+  "sources": []
+}
